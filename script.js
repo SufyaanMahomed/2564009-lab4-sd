@@ -11,6 +11,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
 function fetchCountryData(countryName) {
     fetch(`https://restcountries.com/v3.1/name/${countryName}`)
         .then(response => {
+            //if not 200 status code
             if (!response.ok) {
                 throw new Error('Country not found');
             }
@@ -19,7 +20,7 @@ function fetchCountryData(countryName) {
         .then(data => {
             const country = data[0];
             displayCountryInfo(country);
-            console.log(data);
+            console.log(country);
             fetchBorderingCountries(country.borders);
         })
         .catch(error => {
@@ -37,7 +38,7 @@ function fetchBorderingCountries(borders) {
         fetch(`https://restcountries.com/v3.1/alpha/${border}`)
             .then(response => response.json())
     );
-
+    console.log(borderPromises)
     Promise.all(borderPromises)
         .then(countries => {
             displayBorderingCountries(countries);
@@ -55,7 +56,6 @@ function displayCountryInfo(country) {
         <p><strong>Population:</strong> ${country.population.toLocaleString()}</p>
         <p><strong>Region:</strong> ${country.region}</p>
         <img src="${country.flags.svg}" alt="Flag of ${country.name.common}" width="200">
-        <p><strong>Region:</strong> ${country.borders}</p>
     `;
 }
 
