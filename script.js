@@ -19,7 +19,7 @@ function fetchCountryData(countryName) {
         .then(data => {
             const country = data[0];
             displayCountryInfo(country);
-            console.log(country);
+            console.log(data);
             fetchBorderingCountries(country.borders);
         })
         .catch(error => {
