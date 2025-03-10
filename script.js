@@ -38,7 +38,6 @@ function fetchBorderingCountries(borders) {
         fetch(`https://restcountries.com/v3.1/alpha/${border}`)
             .then(response => response.json())
     );
-    console.log(borderPromises)
     Promise.all(borderPromises)
         .then(countries => {
             displayBorderingCountries(countries);
